@@ -83,16 +83,28 @@ public class MessagingService extends FirebaseMessagingService {
             return;
         }
         Map<String, String> data = remoteMessage.getData();
-        String customNotification = data.get("custom_notification");
-        if(customNotification != null){
-            try {
-                Bundle bundle = BundleJSONConverter.convertToBundle(new JSONObject(customNotification));
-                FIRLocalMessagingHelper helper = new FIRLocalMessagingHelper(this.getApplication());
-                helper.sendNotification(bundle);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+      
+       Map<String, String> data = remoteMessage.getData();
+String sound = data.get("sound");
+String launch = data.get("launch");
+String notificationId = data.get("notificationId");
+String alert = data.get("alert");
+String title = data.get("title");
+    try {
+        JSONObject item = new JSONObject();
+        item.put("body", alert);
+        item.put("id", notificationId);
+        item.put("sound", sound);
+        item.put("title", title);
+        item.put("show_in_foreground", true);
+        String message = item.toString();
+        Bundle bundle = BundleJSONConverter.convertToBundle(new JSONObject(message));
+        FIRLocalMessagingHelper helper = new FIRLocalMessagingHelper(this.getApplication());
+        helper.sendNotification(bundle);
+    } catch (JSONException e) {
+        Log.d(TAG,"exception in parsing data"+e);
+        e.printStackTrace();
+    }
 
-        }
     }
 }
