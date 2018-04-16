@@ -56,8 +56,8 @@ public class SendNotificationTask extends AsyncTask<Void, Void, Void> {
                 return null;
             }           
             
-           /* String body = bundle.getString("body");
-            if (body == null) {
+           String body = bundle.getString("body");
+           /* if (body == null) {
                 return null;
             } */
 			body = URLDecoder.decode( body, "UTF-8" );
