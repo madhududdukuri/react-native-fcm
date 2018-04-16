@@ -82,7 +82,7 @@ public class MessagingService extends FirebaseMessagingService {
         if(remoteMessage.getData() == null){
             return;
         }
-        Map<String, String> data = remoteMessage.getData();
+      
       
        Map<String, String> data = remoteMessage.getData();
 String sound = data.get("sound");
